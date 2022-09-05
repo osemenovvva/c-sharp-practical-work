@@ -50,7 +50,6 @@ namespace BranchesAndLoops
                 {
                     Console.WriteLine("Введено некорректное значение карты!");
                     i--;
-                    continue;
                 }
             }
 
