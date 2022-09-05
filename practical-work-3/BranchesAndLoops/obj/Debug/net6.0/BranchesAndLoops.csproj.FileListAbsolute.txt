@@ -1,0 +1,15 @@
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/bin/Debug/net6.0/BranchesAndLoops
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/bin/Debug/net6.0/BranchesAndLoops.deps.json
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/bin/Debug/net6.0/BranchesAndLoops.runtimeconfig.json
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/bin/Debug/net6.0/BranchesAndLoops.dll
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/bin/Debug/net6.0/BranchesAndLoops.pdb
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/Debug/net6.0/BranchesAndLoops.csproj.AssemblyReference.cache
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/Debug/net6.0/BranchesAndLoops.GeneratedMSBuildEditorConfig.editorconfig
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/Debug/net6.0/BranchesAndLoops.AssemblyInfoInputs.cache
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/Debug/net6.0/BranchesAndLoops.AssemblyInfo.cs
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/Debug/net6.0/BranchesAndLoops.csproj.CoreCompileInputs.cache
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/Debug/net6.0/BranchesAndLoops.dll
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/Debug/net6.0/refint/BranchesAndLoops.dll
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/Debug/net6.0/BranchesAndLoops.pdb
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/Debug/net6.0/BranchesAndLoops.genruntimeconfig.cache
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/Debug/net6.0/ref/BranchesAndLoops.dll

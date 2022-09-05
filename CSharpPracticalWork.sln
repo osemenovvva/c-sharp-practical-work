@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1700.6
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PW_03_BranchesAndLoops", "PW_03_BranchesAndLoops", "{B050A684-7E96-4F5C-ABC2-477BB65EBBD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BranchesAndLoops", "practical-work-3\BranchesAndLoops\BranchesAndLoops.csproj", "{4E8DDF25-F0A8-4F6B-B9BC-65DB78D2EF03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E8DDF25-F0A8-4F6B-B9BC-65DB78D2EF03}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E8DDF25-F0A8-4F6B-B9BC-65DB78D2EF03}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E8DDF25-F0A8-4F6B-B9BC-65DB78D2EF03}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E8DDF25-F0A8-4F6B-B9BC-65DB78D2EF03}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F43548D8-4CAB-4181-A481-46E59495E203}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4E8DDF25-F0A8-4F6B-B9BC-65DB78D2EF03} = {B050A684-7E96-4F5C-ABC2-477BB65EBBD5}
+	EndGlobalSection
+EndGlobal
