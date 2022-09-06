@@ -1,24 +1,13 @@
-﻿<Properties StartupConfiguration="{776EFD77-E702-4108-9831-C3F1CFD05D5D}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="practical-work-4/GameOfLife/Program.cs">
+﻿<Properties StartupConfiguration="{4E8DDF25-F0A8-4F6B-B9BC-65DB78D2EF03}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="WordsInString/Program.cs">
     <Files>
-      <File FileName="practical-work-4/Arrays/Program.cs" Line="43" Column="14" />
-      <File FileName="practical-work-4/GameOfLife/EmptyClass.cs" Line="3" Column="1" />
-      <File FileName="practical-work-4/Program.cs" Line="71" Column="14" />
-      <File FileName="practical-work-3/BranchesAndLoops/Program.cs" Line="1" Column="1" />
+      <File FileName="WordsInString/Program.cs" Line="13" Column="45" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="CSharpPracticalWork" expanded="True">
-            <Node name="PW_03_BranchesAndLoops" expanded="True">
-              <Node name="BranchesAndLoops" expanded="True" />
-            </Node>
-            <Node name="PW_04_Arrays" expanded="True">
-              <Node name="Arrays" expanded="True" />
-              <Node name="GameOfLife" expanded="True">
-                <Node name="Program.cs" selected="True" />
-              </Node>
-            </Node>
+            <Node name="PW_04_Arrays" selected="True" />
           </Node>
         </State>
       </Pad>

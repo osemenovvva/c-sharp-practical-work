@@ -1,4 +1,6 @@
-﻿namespace WordsInString
+﻿using System;
+
+namespace WordsInString
 {
     class Program
     {
@@ -11,7 +13,6 @@
             Console.Write("Введите предложение: ");
             string sentence1 = Console.ReadLine();
             PrintWords(GetWords(sentence1));
-
 
             Console.ReadKey();
 
@@ -27,7 +28,7 @@
             Console.ReadKey();
 
         }
-        
+
         public static string[] GetWords(string sentence)
         {
             string[] words = sentence.Split(' ');
@@ -61,4 +62,5 @@
         }
     }
 }
+
 
