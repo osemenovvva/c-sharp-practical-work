@@ -1,13 +1,14 @@
-﻿<Properties StartupConfiguration="{3C27DD17-EE34-4706-9B1C-619387582131}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Program.cs">
-    <Files>
-      <File FileName="Program.cs" Line="78" Column="17" />
-    </Files>
+﻿<Properties StartupConfiguration="{48B15AF1-55F2-4906-B039-D179E1124166}|Default">
+  <MonoDevelop.Ide.ItemProperties.GameOfLife PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="BranchesAndLoops" expanded="True">
-            <Node name="BranchesAndLoops" expanded="True" />
+          <Node name="GameOfLife" expanded="True">
+            <Node name="GameOfLife" expanded="True">
+              <Node name="Dependencies" expanded="True" />
+              <Node name="EmptyClass.cs" selected="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
@@ -16,7 +17,6 @@
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
-  <MonoDevelop.Ide.ItemProperties.BranchesAndLoops PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

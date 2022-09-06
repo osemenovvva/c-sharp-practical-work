@@ -1,0 +1,15 @@
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/bin/Debug/net6.0/Arrays
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/bin/Debug/net6.0/Arrays.deps.json
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/bin/Debug/net6.0/Arrays.runtimeconfig.json
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/bin/Debug/net6.0/Arrays.dll
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/bin/Debug/net6.0/Arrays.pdb
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/obj/Debug/net6.0/Arrays.csproj.AssemblyReference.cache
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/obj/Debug/net6.0/Arrays.GeneratedMSBuildEditorConfig.editorconfig
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/obj/Debug/net6.0/Arrays.AssemblyInfoInputs.cache
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/obj/Debug/net6.0/Arrays.AssemblyInfo.cs
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/obj/Debug/net6.0/Arrays.csproj.CoreCompileInputs.cache
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/obj/Debug/net6.0/Arrays.dll
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/obj/Debug/net6.0/refint/Arrays.dll
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/obj/Debug/net6.0/Arrays.pdb
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/obj/Debug/net6.0/Arrays.genruntimeconfig.cache
+/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-4/Arrays/obj/Debug/net6.0/ref/Arrays.dll

@@ -1,14 +1,21 @@
-﻿<Properties StartupConfiguration="{4E8DDF25-F0A8-4F6B-B9BC-65DB78D2EF03}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="practical-work-3/BranchesAndLoops/Program.cs">
+﻿<Properties StartupConfiguration="{0A0D9CD1-D225-4BB1-A86F-901DD0BFB488}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="practical-work-4/GameOfLife/EmptyClass.cs">
     <Files>
-      <File FileName="../../../../../usr/local/share/dotnet/sdk/6.0.302/Microsoft.Common.CurrentVersion.targets" Line="4699" Column="5" />
-      <File FileName="practical-work-3/BranchesAndLoops/Program.cs" Line="1" Column="1" />
+      <File FileName="practical-work-4/Arrays/Program.cs" Line="67" Column="10" />
+      <File FileName="practical-work-4/GameOfLife/EmptyClass.cs" Line="10" Column="58" />
+      <File FileName="practical-work-4/Program.cs" Line="39" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="CSharpPracticalWork" expanded="True">
-            <Node name="PW_03_BranchesAndLoops" expanded="True" />
+            <Node name="PW_03_BranchesAndLoops" expanded="True">
+              <Node name="BranchesAndLoops" expanded="True" />
+            </Node>
+            <Node name="PW_04_Arrays" expanded="True">
+              <Node name="Arrays" expanded="True" />
+              <Node name="GameOfLife" expanded="True" />
+            </Node>
           </Node>
         </State>
       </Pad>
@@ -19,9 +26,9 @@
   </MonoDevelop.Ide.Workbench>
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.PW__03__BranchesAndLoops.BranchesAndLoops PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.ItemProperties.PW__04__Arrays.GameOfLife PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.PW__04__Arrays.Arrays PreferredExecutionTarget="MonoDevelop.Default" />
 </Properties>
