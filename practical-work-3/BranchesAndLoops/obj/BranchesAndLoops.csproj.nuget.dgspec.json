@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/BranchesAndLoops.csproj": {}
+    "/Users/olgasemenova/Downloads/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/BranchesAndLoops.csproj": {}
   },
   "projects": {
-    "/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/BranchesAndLoops.csproj": {
+    "/Users/olgasemenova/Downloads/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/BranchesAndLoops.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/BranchesAndLoops.csproj",
+        "projectUniqueName": "/Users/olgasemenova/Downloads/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/BranchesAndLoops.csproj",
         "projectName": "BranchesAndLoops",
-        "projectPath": "/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/BranchesAndLoops.csproj",
+        "projectPath": "/Users/olgasemenova/Downloads/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/BranchesAndLoops.csproj",
         "packagesPath": "/Users/olgasemenova/.nuget/packages/",
-        "outputPath": "/Users/olgasemenova/Documents/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/",
+        "outputPath": "/Users/olgasemenova/Downloads/GitHub/c-sharp-practical-work/practical-work-3/BranchesAndLoops/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/olgasemenova/.nuget/NuGet/NuGet.Config"
