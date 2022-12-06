@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ListCollection", "ListCollection\ListCollection.csproj", "{B6A6C504-A963-4917-8118-0C0259C8C809}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneDictionary", "TelephoneDictionary\TelephoneDictionary.csproj", "{01CEEB14-39CC-4224-845B-F04AC4DDC25E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashSetCollection", "HashSetCollection\HashSetCollection.csproj", "{9725AB0D-590A-4549-92A1-313263B7AC7D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlTelephoneBook", "XmlTelephoneBook\XmlTelephoneBook.csproj", "{4FDD292D-D60D-47CD-9EE9-776471394E20}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B6A6C504-A963-4917-8118-0C0259C8C809}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B6A6C504-A963-4917-8118-0C0259C8C809}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B6A6C504-A963-4917-8118-0C0259C8C809}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B6A6C504-A963-4917-8118-0C0259C8C809}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01CEEB14-39CC-4224-845B-F04AC4DDC25E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01CEEB14-39CC-4224-845B-F04AC4DDC25E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01CEEB14-39CC-4224-845B-F04AC4DDC25E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01CEEB14-39CC-4224-845B-F04AC4DDC25E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9725AB0D-590A-4549-92A1-313263B7AC7D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9725AB0D-590A-4549-92A1-313263B7AC7D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9725AB0D-590A-4549-92A1-313263B7AC7D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9725AB0D-590A-4549-92A1-313263B7AC7D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FDD292D-D60D-47CD-9EE9-776471394E20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FDD292D-D60D-47CD-9EE9-776471394E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FDD292D-D60D-47CD-9EE9-776471394E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FDD292D-D60D-47CD-9EE9-776471394E20}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
