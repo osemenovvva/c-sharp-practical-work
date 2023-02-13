@@ -1,0 +1,32 @@
+﻿<Window x:Class="WpfApp3.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Работа с предложениями" Height="450" Width="800">
+    <Grid>
+        <TabControl>
+            <TabItem Header="Разбиение на слова">
+                <Grid Background="#FFE5E5E5">
+                    <TextBox x:Name="SplitWordsTextBox" HorizontalAlignment="Left" Margin="20,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="648" Height="20"/>
+                    <Button x:Name="SplitWordsButton" Content="Применить" HorizontalAlignment="Left" Margin="678,40,0,0" VerticalAlignment="Top" Click="ButtonClickSplitWords" Width="87"/>
+                    <ListBox x:Name="SplitWordsListBox" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="20,100,459,20" SelectionChanged="ListBox_SelectionChanged"/>
+                    <Label Content="Введите предложение" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Результат" HorizontalAlignment="Left" Margin="20,71,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.56,1.582"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Перестановка слов в обратном порядке">
+                <Grid Background="#FFE5E5E5">
+                    <TextBox x:Name="ReverseTextBox" HorizontalAlignment="Left" Margin="20,40,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="648" Height="20"/>
+                    <Button x:Name="ReverseButon" Content="Применить" HorizontalAlignment="Left" Margin="678,40,0,0" VerticalAlignment="Top" Click="ButtonClickReverseWords" RenderTransformOrigin="0.29,-0.635" Width="87"/>
+                    <Label x:Name="ReverseLabel" HorizontalAlignment="Left" Margin="20,100,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.8,0.308" Height="32" Width="650"/>
+                    <Label Content="Введите предложение" HorizontalAlignment="Left" Margin="20,10,0,0" VerticalAlignment="Top"/>
+                    <Label Content="Результат" HorizontalAlignment="Left" Margin="20,71,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.56,1.582"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+</Window>
+
