@@ -2,7 +2,7 @@
 
 namespace WordsInString
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -23,7 +23,7 @@ namespace WordsInString
 
             Console.Write("\nВведите предложение: ");
             string sentence2 = Console.ReadLine();
-            ReverseWords(sentence2);
+            Console.Write(ReverseWords(sentence2));
 
             Console.ReadKey();
 
@@ -44,21 +44,22 @@ namespace WordsInString
             }
         }
 
-        public static void ReverseWords(string sentence)
+        public static string ReverseWords(string sentence)
         {
-            string[] reverseSentence = GetWords(sentence).Reverse().ToArray();
+            string[] words = GetWords(sentence).Reverse().ToArray();
+            string reverseSentence = "";
 
-            for (int i = 0; i < reverseSentence.Length; i++)
+            for (int i = 0; i < words.Length; i++)
             {
-                if (reverseSentence[i].Contains("."))
+                if (words[i].Contains("."))
                 {
-                    reverseSentence[i] = reverseSentence[i].Remove(reverseSentence[i].Length - 1);
-                    reverseSentence[i] = reverseSentence[i].Insert(0, ".");
+                    words[i] = words[i].Remove(words[i].Length - 1);
+                    words[i] = words[i].Insert(0, ".");
                 }
-
-                Console.Write($"{reverseSentence[i]} ");
+                reverseSentence += $"{words[i]} ";
             }
 
+            return reverseSentence;
         }
     }
 }
