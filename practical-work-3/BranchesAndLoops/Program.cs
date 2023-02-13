@@ -116,7 +116,7 @@ namespace BranchesAndLoops
             {
                 Console.Write("Введите загаданное число: ");
                 string userInput = Console.ReadLine();
-                
+
                 if (userInput == "")
                 {
                     Console.WriteLine($"Спасибо за игру! Загаданное число: {value}");
