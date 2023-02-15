@@ -28,7 +28,7 @@ namespace WpfApp3
 
         private void ButtonClickSplitWords(object sender, RoutedEventArgs e)
         {
-            SplitWordsListBox.ItemsSource = WordsInString.Program.GetWords(SplitWordsTextBox.Text);
+            SplitWordsListBox.ItemsSource = Program.GetWords(SplitWordsTextBox.Text);
         }
 
         private void ButtonClickReverseWords(object sender, RoutedEventArgs e)
