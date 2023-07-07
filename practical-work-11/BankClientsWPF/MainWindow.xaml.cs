@@ -11,7 +11,7 @@ namespace BankClientsWPF
         public MainWindow()
         {
             InitializeComponent();
-            this.Content = new AuthPage(this);
+            NavigateToPage(new AuthPage(this));
         }
 
         /// <summary>

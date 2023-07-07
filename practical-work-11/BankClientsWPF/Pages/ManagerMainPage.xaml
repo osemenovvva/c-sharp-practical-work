@@ -29,7 +29,7 @@
                Margin="40 0" />
         <Button Grid.Row="2"
                 HorizontalAlignment="Left"
-                Content="+ Добавить сотрудника"
+                Content="+ Добавить клиента"
                 Click="AddClientButton_Click"  
                 Width="230"
                 FontSize="14" Margin="914 5 0 5" />

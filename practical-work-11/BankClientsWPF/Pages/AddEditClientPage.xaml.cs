@@ -11,7 +11,7 @@ namespace BankClientsWPF
     /// </summary>
     public partial class AddEditClientPage : Page
     {
-        private ClientDTO _currentClient = new ClientDTO(); // выбранный для редактирования данных клиент
+        private ClientDTO _currentClient = new ClientDTO(); // клиент для добавления или редактирования
         private MainWindow _mainWindow;
         private Service _service;
         private IChangeClient _employee;
@@ -31,7 +31,7 @@ namespace BankClientsWPF
                 _currentAction = "edit";
                 pageHeader.Content = "Редактирование клиента";
             }
-            this.DataContext = _currentClient; // отображение данных клиента в форме для редактирования
+            this.DataContext = _currentClient; // привязка данных клиента к форме
 
             #region Проверка прав доступа для редактирования полей
             if (!employee.CanUpdateLastName())
