@@ -13,7 +13,7 @@ namespace BankSystemWPF.Model
         /// </summary>
         public void RefillNoDepositAccount()
         {
-            MessageBox.Show("Недепозитный счет пополнен успешно");
+            //Логика пополнения недепозитного счета
         }
     }
 }

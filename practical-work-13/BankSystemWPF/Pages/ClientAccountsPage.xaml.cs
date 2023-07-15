@@ -31,9 +31,6 @@ namespace BankSystemWPF.Pages
         private List<string> _accountTypesToShow; // Типы счета для отображения данных
         private List<string> _accountTypesToChoose; // Типы счета для выбора
         private IChangeClient _employee;
-        //private ObservableCollection<ActionLog> _logs;
-        //private LogService _logService;
-
 
         public ClientAccountsPage(MainWindow mainWindow, ClientDTO currentClient, Service<Client> service,
             IChangeClient employee)
@@ -43,8 +40,6 @@ namespace BankSystemWPF.Pages
             _service = service;
             _currentClient = currentClient;
             _employee = employee;
-            //_logs = logs;
-            //_logService = logService;
             _clientAccounts = new ObservableCollection<AccountDTO>(_service.GetAllAccountsView(currentClient));
             listBox.ItemsSource = _clientAccounts;
             _accountTypesToShow = new List<string>() { "Недепозитный", "Депозитный" };
@@ -242,7 +237,6 @@ namespace BankSystemWPF.Pages
 
             _service.SaveAccount(_newAccount, _currentClient, accountName, type, balance);
             _clientAccounts.Add(_newAccount);
-            MessageBox.Show("Счет открыт успешно");
             CancelButton_Click(sender, e);
         }
 
@@ -349,7 +343,6 @@ namespace BankSystemWPF.Pages
             #endregion
 
             _service.EditAccount(_selectedAccount, _currentClient.Id);
-            MessageBox.Show("Счет изменен успешно");
             CancelButton_Click(sender, e);
         }
 
@@ -428,7 +421,6 @@ namespace BankSystemWPF.Pages
             _selectedAccount.Balance = (Convert.ToDecimal(_selectedAccount.Balance) - transferAmount).ToString();
             _selectedAccountToTransfer.Balance = (Convert.ToDecimal(_selectedAccount.Balance) + transferAmount).ToString();
 
-            MessageBox.Show("Перевод выполнен успешно");
             CancelButton_Click(sender, e);
         }
 
@@ -505,6 +497,7 @@ namespace BankSystemWPF.Pages
             }
             else
             {
+                chooseClientComboBox.Visibility = Visibility.Visible;
                 chooseClientEmptyLabel.Visibility = Visibility.Hidden;
                 chooseClientComboBox.ItemsSource = _clientsToTransfer;
             }
@@ -547,9 +540,10 @@ namespace BankSystemWPF.Pages
                 chooseAccountComboBox.Visibility = Visibility.Hidden;
             }
             else
-            {
+            { 
                 chooseAccountEmptyLabel.Visibility = Visibility.Hidden;
                 chooseAccountComboBox.IsEnabled = true;
+                chooseAccountComboBox.Visibility = Visibility.Visible;
                 chooseAccountComboBox.ItemsSource = _accountsToTransfer;
             }
         }

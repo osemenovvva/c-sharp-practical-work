@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BankSystemWPF"
         mc:Ignorable="d"
-        Title="ConsultantMainPage" Height="700" Width="1500">
+        Title="ConsultantMainPage" Height="700" Width="1350">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="49*" />

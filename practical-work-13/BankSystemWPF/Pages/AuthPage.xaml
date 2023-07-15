@@ -7,11 +7,11 @@
         mc:Ignorable="d"
         Title="AuthPage" 
         Height="700" 
-        Width="1500">
+        Width="1350">
     <Grid Background="White">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="750" />
-            <ColumnDefinition Width="750" />
+            <ColumnDefinition Width="650" />
+            <ColumnDefinition Width="650" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="110" />
