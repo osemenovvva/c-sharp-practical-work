@@ -13,7 +13,7 @@ namespace BankSystemWPF.Model
         /// </summary>
         public void RefillDepositAccount()
         {
-            MessageBox.Show("Депозитный счет пополнен успешно");
+            //Логика пополнения депозитного счета
         }
     }
 }

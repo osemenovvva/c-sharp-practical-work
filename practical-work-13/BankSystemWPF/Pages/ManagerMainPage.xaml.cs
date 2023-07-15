@@ -90,7 +90,7 @@ namespace BankSystemWPF
 
         private void JournalButton_Click(object sender, RoutedEventArgs e)
         {
-            _mainWindow.NavigateToPage(new ActionsJournalLog(_mainWindow, _employee));
+            _mainWindow.NavigateToPage(new ActionsJournalLog(_mainWindow, _employee, _logService));
         }
     }
 }

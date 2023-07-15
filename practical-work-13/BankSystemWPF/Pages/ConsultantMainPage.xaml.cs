@@ -19,7 +19,6 @@ namespace BankSystemWPF
         private SqliteDataAccess<DepositAccount> _depositRepository; // Репозиторий для работы с депозитными счетами
         private NoDepositAccountRefillService _noDepositAccountRefillService; // Сервис для работы с недепозитными счетами
         private DepositAccountRefillService _depositAccountRefillService; // Сервис для работы с депозитными счетами
-        //private ObservableCollection<ActionLog> _logs;
         private Service<Client> _service;
         private LogRepository _logRepository;
         private LogService _logService;
@@ -33,14 +32,14 @@ namespace BankSystemWPF
             this._mainWindow = mainWindow;
             this._repository = new SqliteDataAccess<Account>();
             this._employee = new Consultant();
-            _noDepositRepository = new SqliteDataAccess<NoDepositAccount>();
-            _depositRepository = new SqliteDataAccess<DepositAccount>();
-            _depositAccountRefillService = new DepositAccountRefillService(_depositRepository);
-            _noDepositAccountRefillService = new NoDepositAccountRefillService(_noDepositRepository);
+            this._noDepositRepository = new SqliteDataAccess<NoDepositAccount>();
+            this._depositRepository = new SqliteDataAccess<DepositAccount>();
+            this._depositAccountRefillService = new DepositAccountRefillService(_depositRepository);
+            this._noDepositAccountRefillService = new NoDepositAccountRefillService(_noDepositRepository);
             this._service = new Service<Client>(_repository, _noDepositAccountRefillService, _depositAccountRefillService);
             this._logRepository = new LogRepository();
             this._logService = new LogService(_logRepository, _employee);
-            _notifications = new UserNotifications();
+            this._notifications = new UserNotifications();
 
             List<ClientDTO> clientsDTO = _service.GetAllClientsView(_employee);
             dataGrid.ItemsSource = clientsDTO;
@@ -83,7 +82,7 @@ namespace BankSystemWPF
 
         private void JournalButton_Click(object sender, RoutedEventArgs e)
         {
-            _mainWindow.NavigateToPage(new ActionsJournalLog(_mainWindow, _employee));
+            _mainWindow.NavigateToPage(new ActionsJournalLog(_mainWindow, _employee, _logService));
         }
 
     }

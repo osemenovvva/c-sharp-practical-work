@@ -36,15 +36,16 @@ namespace BankSystemWPF.Pages
             IChangeClient employee)
         {
             InitializeComponent();
-            _mainWindow = mainWindow;
-            _service = service;
-            _currentClient = currentClient;
-            _employee = employee;
-            _clientAccounts = new ObservableCollection<AccountDTO>(_service.GetAllAccountsView(currentClient));
-            listBox.ItemsSource = _clientAccounts;
-            _accountTypesToShow = new List<string>() { "Недепозитный", "Депозитный" };
-            _accountTypesToChoose = new List<string>() { "Недепозитный", "Депозитный" };
+            this._mainWindow = mainWindow;
+            this._service = service;
+            this._currentClient = currentClient;
+            this._employee = employee;
 
+            this._clientAccounts = new ObservableCollection<AccountDTO>(_service.GetAllAccountsView(currentClient));
+            this._accountTypesToShow = new List<string>() { "Недепозитный", "Депозитный" };
+            this._accountTypesToChoose = new List<string>() { "Недепозитный", "Депозитный" };
+
+            listBox.ItemsSource = _clientAccounts;
             typeComboBox.ItemsSource = _accountTypesToShow;
             this.DataContext = this;
 
