@@ -1,16 +1,16 @@
-﻿using BankSystemWPF.Model;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankSystemWPF
+namespace BankSystemWPF.Model
 {
     public class DepositAccountRefillService : IRefill<DepositAccount>
     {
         private SqliteDataAccess<DepositAccount> _repository;
+
         public event Action<string> DepositAccountRefilled;
 
         public DepositAccountRefillService(SqliteDataAccess<DepositAccount> repository)
@@ -27,13 +27,20 @@ namespace BankSystemWPF
         /// <returns>Депозитный счет</returns>
         public DepositAccount RefillAccount(int clientId, int type, decimal refillAmount)
         {
-            DepositAccount depositAccount = _repository.FindAccount(clientId, type);
-            depositAccount.RefillDepositAccount();
-            depositAccount.Balance += refillAmount;
-            _repository.RefillAccount(depositAccount);
-            DepositAccountRefilled?.Invoke($"Депозитный счет пополнен на {refillAmount} у.е.");
+            DepositAccount? depositAccount = _repository.FindAccount(clientId, type);
 
-            return depositAccount;
+            if (depositAccount != null)
+            {
+                depositAccount.Balance += refillAmount;
+                _repository.RefillAccount(depositAccount);
+                DepositAccountRefilled?.Invoke($"Депозитный счет клиента #{clientId} пополнен на {refillAmount} у.е.");
+
+                return depositAccount;
+            }
+            else
+            {
+                throw new Exception();
+            }
         }
     }
 }

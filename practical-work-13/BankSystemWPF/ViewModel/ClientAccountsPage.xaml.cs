@@ -1,16 +1,16 @@
 ﻿using BankSystemWPF.Model;
+using BankSystemWPF.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace BankSystemWPF.Pages
+namespace BankSystemWPF.View
 {
     /// <summary>
     /// Interaction logic for ClientAccountsPage.xaml
@@ -19,52 +19,98 @@ namespace BankSystemWPF.Pages
     {
         private MainWindow _mainWindow;
         private Service<Client> _service;
+        private LogService _logService;
+        private NoDepositAccountRefillService _noDepositAccountRefillService;
+        private DepositAccountRefillService _depositAccountRefillService;
+        private UserNotifications _userNotifications;
         private ClientDTO _currentClient; // Выбранный клиент
-        private ObservableCollection<AccountDTO> _clientAccounts; // Счета выбранного клиента
-        private ObservableCollection<AccountDTO> _accountsToTransfer; // Счета, доступные для перевода денег
+        private ObservableCollection<AccountDTO>? _clientAccounts; // Счета выбранного клиента
+        private ObservableCollection<AccountDTO>? _accountsToTransfer; // Счета, доступные для перевода денег
         private AccountDTO _selectedAccountToTransfer; // Счет, выбранный для перевода денег
         private ObservableCollection<ClientDTO> _clientsToTransfer; // Клиенты, доступные для перевода денег
         private ClientDTO _selectedClientToTransfer; // Клиент, выбранный для перевода денег
-        private AccountDTO _selectedAccount = new AccountDTO(); // Выбранный счет
+        private AccountDTO _selectedAccount; // Выбранный счет
         private AccountDTO _newAccount = new AccountDTO(); // Новый счет
         private string _selectedAccountType; // Выбранный тип счета
         private List<string> _accountTypesToShow; // Типы счета для отображения данных
         private List<string> _accountTypesToChoose; // Типы счета для выбора
-        private IChangeClient _employee;
 
-        public ClientAccountsPage(MainWindow mainWindow, ClientDTO currentClient, Service<Client> service,
-            IChangeClient employee)
+
+        public ClientAccountsPage(MainWindow mainWindow, ClientDTO currentClient, Service<Client> service, LogService logService, 
+            DepositAccountRefillService depositAccountRefillService,NoDepositAccountRefillService noDepositAccountRefillService, UserNotifications userNotifications)
         {
             InitializeComponent();
-            this._mainWindow = mainWindow;
-            this._service = service;
-            this._currentClient = currentClient;
-            this._employee = employee;
+            _mainWindow = mainWindow;
+            _service = service;
+            _logService = logService;
+            _depositAccountRefillService = depositAccountRefillService;
+            _noDepositAccountRefillService = noDepositAccountRefillService;
+            _userNotifications = userNotifications;
+            _currentClient = currentClient;
 
-            this._clientAccounts = new ObservableCollection<AccountDTO>(_service.GetAllAccountsView(currentClient));
-            this._accountTypesToShow = new List<string>() { "Недепозитный", "Депозитный" };
-            this._accountTypesToChoose = new List<string>() { "Недепозитный", "Депозитный" };
+            _clientAccounts = new ObservableCollection<AccountDTO>(_service.GetAllAccountsView(currentClient));
+            _accountTypesToShow = new List<string>() { "Недепозитный", "Депозитный" };
+            _accountTypesToChoose = new List<string>() { "Недепозитный", "Депозитный" };
 
             listBox.ItemsSource = _clientAccounts;
             typeComboBox.ItemsSource = _accountTypesToShow;
-            this.DataContext = this;
+            DataContext = this;
 
             accountNameTextBox.IsEnabled = false;
             typeComboBox.IsEnabled = false;
             balanceTextBox.IsEnabled = false;
 
-            if (!_service.CanAnAccountBeCreated(_clientAccounts)) { 
-                openAccountButton.Visibility = Visibility.Hidden; 
+            if (!_service.CanAnAccountBeCreated(_clientAccounts))
+            {
+                openAccountButton.Visibility = Visibility.Hidden;
             }
 
+            SubscribeOnEvents();
+        }
+
+        /// <summary>
+        /// Метод подписки методов на события
+        /// </summary>
+        private void SubscribeOnEvents()
+        {
+            _service.AccountOpened += _logService.OnEventTriggered;
+            _service.AccountClosed += _logService.OnEventTriggered;
+            _service.AccountUpdated += _logService.OnEventTriggered;
+            _service.MoneyTransfered += _logService.OnEventTriggered;
+            _depositAccountRefillService.DepositAccountRefilled += _logService.OnEventTriggered;
+            _noDepositAccountRefillService.NoDepositAccountRefilled += _logService.OnEventTriggered;
+            _service.AccountOpened += _userNotifications.ShowNotificationsAccountOpened;
+            _service.AccountClosed += _userNotifications.ShowNotificationAccountClosed;
+            _service.AccountUpdated += _userNotifications.ShowNotificationAccountUpdated;
+            _service.MoneyTransfered += _userNotifications.ShowNotificationMoneyTransfered;
+            _depositAccountRefillService.DepositAccountRefilled += _userNotifications.ShowNotificationDepositAccountRefilled;
+            _noDepositAccountRefillService.NoDepositAccountRefilled += _userNotifications.ShowNotificationNoDepositAccountRefilled;
+        }
+
+        /// <summary>
+        /// Метод для отписывания методов от событий
+        /// </summary>
+        public void UnsubscribeOnEvents()
+        {
+            _service.AccountOpened -= _logService.OnEventTriggered;
+            _service.AccountClosed -= _logService.OnEventTriggered;
+            _service.AccountUpdated -= _logService.OnEventTriggered;
+            _service.MoneyTransfered -= _logService.OnEventTriggered;
+            _depositAccountRefillService.DepositAccountRefilled -= _logService.OnEventTriggered;
+            _noDepositAccountRefillService.NoDepositAccountRefilled -= _logService.OnEventTriggered;
+            _service.AccountOpened -= _userNotifications.ShowNotificationsAccountOpened;
+            _service.AccountClosed -= _userNotifications.ShowNotificationAccountClosed;
+            _service.AccountUpdated -= _userNotifications.ShowNotificationAccountUpdated;
+            _service.MoneyTransfered -= _userNotifications.ShowNotificationMoneyTransfered;
+            _depositAccountRefillService.DepositAccountRefilled -= _userNotifications.ShowNotificationDepositAccountRefilled;
+            _noDepositAccountRefillService.NoDepositAccountRefilled -= _userNotifications.ShowNotificationNoDepositAccountRefilled;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
         #region Свойства
@@ -75,12 +121,12 @@ namespace BankSystemWPF.Pages
         {
             get
             {
-                return this._selectedAccount;
+                return _selectedAccount;
             }
 
             set
             {
-                this._selectedAccount = value;
+                _selectedAccount = value;
                 OnPropertyChanged();
             }
         }
@@ -92,11 +138,11 @@ namespace BankSystemWPF.Pages
         {
             get
             {
-                return this._clientsToTransfer;
+                return _clientsToTransfer;
             }
             set
             {
-                this._clientsToTransfer = value;
+                _clientsToTransfer = value;
                 OnPropertyChanged();
             }
         }
@@ -108,12 +154,12 @@ namespace BankSystemWPF.Pages
         {
             get
             {
-                return this._selectedClientToTransfer;
+                return _selectedClientToTransfer;
             }
 
             set
             {
-                this._selectedClientToTransfer = value;
+                _selectedClientToTransfer = value;
                 OnPropertyChanged();
             }
         }
@@ -121,15 +167,15 @@ namespace BankSystemWPF.Pages
         /// <summary>
         /// Коллекция доступных счетов для перевода денежных средств
         /// </summary>
-        public ObservableCollection<AccountDTO> AccountsToTransfer
+        public ObservableCollection<AccountDTO>? AccountsToTransfer
         {
             get
             {
-                return this._accountsToTransfer;
+                return _accountsToTransfer;
             }
             set
             {
-                this._accountsToTransfer = value;
+                _accountsToTransfer = value;
                 OnPropertyChanged();
             }
         }
@@ -141,12 +187,12 @@ namespace BankSystemWPF.Pages
         {
             get
             {
-                return this._selectedAccountToTransfer;
+                return _selectedAccountToTransfer;
             }
 
             set
             {
-                this._selectedAccountToTransfer = value;
+                _selectedAccountToTransfer = value;
                 OnPropertyChanged();
             }
         }
@@ -158,12 +204,12 @@ namespace BankSystemWPF.Pages
         {
             get
             {
-                return this._selectedAccountType;
+                return _selectedAccountType;
             }
 
             set
             {
-                this._selectedAccountType = value;
+                _selectedAccountType = value;
                 OnPropertyChanged("SelectedAccountType");
             }
         }
@@ -172,7 +218,7 @@ namespace BankSystemWPF.Pages
 
         private void CreateAccountButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DataContext = _newAccount;
+            DataContext = _newAccount;
 
             listBox.IsEnabled = false;
 
@@ -196,21 +242,26 @@ namespace BankSystemWPF.Pages
 
         private void GoBackButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this._employee.GetType() == typeof(Manager))
+            UnsubscribeOnEvents();
+
+            if (BankSystemContext.Employee?.GetType() == typeof(Manager))
             {
-                _mainWindow.NavigateToPage(new ManagerMainPage(_mainWindow));
+                _mainWindow.NavigateToPage(new ManagerMainPage(_mainWindow, _logService,
+                _depositAccountRefillService, _noDepositAccountRefillService, _service, _userNotifications));
             }
-            else if (this._employee.GetType() == typeof(Consultant))
+            else if (BankSystemContext.Employee?.GetType() == typeof(Consultant))
             {
-                _mainWindow.NavigateToPage(new ConsultantMainPage(_mainWindow));
+                _mainWindow.NavigateToPage(new ConsultantMainPage(_mainWindow, _logService,
+                _depositAccountRefillService, _noDepositAccountRefillService, _service, _userNotifications));
             }
         }
 
-        private void SaveAccountButton_Click(Object sender, RoutedEventArgs e)
+        private void SaveAccountButton_Click(object sender, RoutedEventArgs e)
         {
             var accountName = accountNameTextBox.Text;
             var type = typeComboBox.SelectedItem.ToString();
             var balance = balanceTextBox.Text;
+            var clientId = _currentClient.Id;
 
             #region Проверка заполнения полей формы
 
@@ -236,14 +287,14 @@ namespace BankSystemWPF.Pages
             }
             #endregion
 
-            _service.SaveAccount(_newAccount, _currentClient, accountName, type, balance);
-            _clientAccounts.Add(_newAccount);
+            _service.SaveAccount(_newAccount, clientId, accountName, type, balance);
+            _clientAccounts = new ObservableCollection<AccountDTO>(_service.GetAllAccountsView(_currentClient));
             CancelButton_Click(sender, e);
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.DataContext = this;
+            DataContext = this;
             listBox.IsEnabled = true;
 
             accountControlButtons.Visibility = Visibility.Hidden;
@@ -251,7 +302,7 @@ namespace BankSystemWPF.Pages
             openAccountButton.Visibility = Visibility.Visible;
 
             accountNameTextBox.IsEnabled = false;
-            typeComboBox.IsEnabled = false; 
+            typeComboBox.IsEnabled = false;
             balanceTextBox.IsEnabled = false;
             accountNameTextBox.IsReadOnly = true;
             typeComboBox.IsReadOnly = true;
@@ -294,7 +345,7 @@ namespace BankSystemWPF.Pages
             balanceTextBox.IsReadOnly = false;
             accountNameTextBox.IsEnabled = true;
             typeComboBox.IsEnabled = false;
-            balanceTextBox.IsEnabled = true;
+            balanceTextBox.IsEnabled = false;
 
             creationDateLabels.Visibility = Visibility.Hidden;
             saveTransferCancelButtons.Visibility = Visibility.Visible;
@@ -310,14 +361,14 @@ namespace BankSystemWPF.Pages
             if (_selectedAccount != null)
             {
                 typeComboBox.ItemsSource = GetAccountTypesToShow();
-                _selectedAccountType = _selectedAccount.Type;
+                _selectedAccountType = _service.GetAccountTypeFromDto(_selectedAccount.Type);
                 typeComboBox.Text = _selectedAccountType;
 
                 accountControlButtons.Visibility = Visibility.Visible;
             }
         }
 
-        private void SaveChangesButton_Click(Object sender, RoutedEventArgs e)
+        private void SaveChangesButton_Click(object sender, RoutedEventArgs e)
         {
             #region Проверка заполнения полей формы
 
@@ -327,11 +378,11 @@ namespace BankSystemWPF.Pages
             {
                 errors.AppendLine("Введите наименование счета");
             }
-            if (_selectedAccount.Type == null)
+            if (_selectedAccount?.Type == null)
             {
                 errors.AppendLine("Введите тип счета");
             }
-            if (string.IsNullOrEmpty(_selectedAccount.Balance))
+            if (string.IsNullOrEmpty(_selectedAccount?.Balance))
             {
                 errors.AppendLine("Введите баланс счета");
             }
@@ -343,18 +394,18 @@ namespace BankSystemWPF.Pages
             }
             #endregion
 
-            _service.EditAccount(_selectedAccount, _currentClient.Id);
+            _service.EditAccount(_selectedAccount);
             CancelButton_Click(sender, e);
         }
 
         private void DeleteAccountButton_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult messageBoxResult = WPFCustomMessageBox.CustomMessageBox.ShowYesNo("Вы уверены, что хотите закрыть счет?", "Подтверждение закрытия счета", "Да", "Нет");
-            
+
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 _service.DeleteAccount(_selectedAccount);
-                _clientAccounts.Remove(_selectedAccount);
+                _clientAccounts?.Remove(_selectedAccount);
 
                 CancelButton_Click(sender, e);
 
@@ -382,7 +433,7 @@ namespace BankSystemWPF.Pages
             transferButton.Visibility = Visibility.Visible;
         }
 
-        private void TransferConfirmationButton_Click(object sender, RoutedEventArgs e )
+        private void TransferConfirmationButton_Click(object sender, RoutedEventArgs e)
         {
             decimal transferAmount = Convert.ToDecimal(transferAmountTextBox.Text);
 
@@ -393,11 +444,11 @@ namespace BankSystemWPF.Pages
             {
                 errors.AppendLine("Не выбран счет для перевода");
             }
-            if ((isTransferToOtherClient.IsChecked == true) && (_selectedClientToTransfer == null))
+            if (isTransferToOtherClient.IsChecked == true && _selectedClientToTransfer == null)
             {
                 errors.AppendLine("Не выбран клиент");
             }
-            if (String.IsNullOrEmpty(transferAmountTextBox.Text))
+            if (string.IsNullOrEmpty(transferAmountTextBox.Text))
             {
                 errors.AppendLine("Введите сумму для перевода");
             }
@@ -405,8 +456,8 @@ namespace BankSystemWPF.Pages
             {
                 errors.AppendLine("Неверное значение суммы для перевода");
             }
-            if (!String.IsNullOrEmpty(transferAmountTextBox.Text) && 
-                (transferAmount > Convert.ToDecimal(_selectedAccount.Balance)))
+            if (!string.IsNullOrEmpty(transferAmountTextBox.Text) &&
+                transferAmount > Convert.ToDecimal(_selectedAccount.Balance))
             {
                 errors.AppendLine("Недостаточно средств");
             }
@@ -419,8 +470,9 @@ namespace BankSystemWPF.Pages
             #endregion
 
             _service.TransferMoney(_selectedAccount, _selectedAccountToTransfer, transferAmount);
-            _selectedAccount.Balance = (Convert.ToDecimal(_selectedAccount.Balance) - transferAmount).ToString();
-            _selectedAccountToTransfer.Balance = (Convert.ToDecimal(_selectedAccount.Balance) + transferAmount).ToString();
+
+            _selectedAccount.Balance = _service.GetAccountBalance(_selectedAccount);
+            _selectedAccountToTransfer.Balance = _service.GetAccountBalance(_selectedAccountToTransfer);
 
             CancelButton_Click(sender, e);
         }
@@ -448,7 +500,7 @@ namespace BankSystemWPF.Pages
             refillTypeComboBox.ItemsSource = GetAccountTypesToRefill();
         }
 
-        private void RefillConfirmationButton_Click(Object sender, RoutedEventArgs e)
+        private void RefillConfirmationButton_Click(object sender, RoutedEventArgs e)
         {
             var refillAmount = Convert.ToDecimal(refillAmountTextBox.Text);
 
@@ -541,7 +593,7 @@ namespace BankSystemWPF.Pages
                 chooseAccountComboBox.Visibility = Visibility.Hidden;
             }
             else
-            { 
+            {
                 chooseAccountEmptyLabel.Visibility = Visibility.Hidden;
                 chooseAccountComboBox.IsEnabled = true;
                 chooseAccountComboBox.Visibility = Visibility.Visible;
@@ -569,6 +621,7 @@ namespace BankSystemWPF.Pages
         /// <returns>Список доступных типов счетов</returns>
         private List<string> GetAccountTypesToRefill()
         {
+            var currentType = _service.GetAccountTypeFromDto(_clientAccounts[0].Type);
             if (_clientAccounts.Count == 0)
             {
                 _accountTypesToChoose = new List<string>() { "Недепозитный", "Депозитный" };
@@ -577,7 +630,7 @@ namespace BankSystemWPF.Pages
             }
             else if (_clientAccounts.Count == 1)
             {
-                var typeToDelete = _clientAccounts[0].Type == "Депозитный" ? "Недепозитный" : "Депозитный";
+                var typeToDelete = currentType == "Депозитный" ? "Недепозитный" : "Депозитный";
                 _accountTypesToChoose.Remove(typeToDelete);
             }
 
@@ -590,18 +643,23 @@ namespace BankSystemWPF.Pages
         /// <returns>Список доступных типов счетов</returns>
         private List<string> GetAccountTypesToCreate()
         {
-            if (_clientAccounts.Count == 0)
+            if (_clientAccounts?.Count > 0)
+            {
+                var currentType = _service.GetAccountTypeFromDto(_clientAccounts[0].Type);
+
+                if (_clientAccounts.Count == 1 &&  _accountTypesToChoose.Count == 2)
+                {
+                    var typeToDelete = currentType;
+                    _accountTypesToChoose.Remove(typeToDelete);
+                }
+                else if (_clientAccounts.Count == _accountTypesToChoose.Count && currentType == _accountTypesToChoose[0])
+                {
+                    _accountTypesToChoose[0] = currentType == "Депозитный" ? "Недепозитный" : "Депозитный";
+                }
+            }
+            else if (_clientAccounts?.Count == 0)
             {
                 _accountTypesToChoose = new List<string>() { "Недепозитный", "Депозитный" };
-            }
-            else if (_clientAccounts.Count == 1 && _clientAccounts.Count < _accountTypesToChoose.Count)
-            {
-                var typeToDelete = _clientAccounts[0].Type == "Депозитный" ? "Депозитный" : "Недепозитный";
-                _accountTypesToChoose.Remove(typeToDelete);
-            }
-            else if (_clientAccounts.Count == _accountTypesToChoose.Count && _clientAccounts[0].Type == _accountTypesToChoose[0])
-            {
-                _accountTypesToChoose[0] = _clientAccounts[0].Type == "Депозитный" ? "Недепозитный" : "Депозитный";
             }
 
             return _accountTypesToChoose;

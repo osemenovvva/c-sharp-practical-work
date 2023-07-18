@@ -1,10 +1,11 @@
 ﻿using BankSystemWPF.Model;
+using BankSystemWPF.ViewModel;
 using System;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace BankSystemWPF.Pages
+namespace BankSystemWPF.View
 {
     /// <summary>
     /// Interaction logic for AddEditClientPage.xaml
@@ -12,45 +13,62 @@ namespace BankSystemWPF.Pages
     public partial class AddEditClientPage : Page
     {
         private MainWindow _mainWindow;
-        private ClientDTO _currentClient = new ClientDTO();
+        private ClientDTO _currentClient;
         private Service<Client> _service;
-        private IChangeClient _employee;
+        private LogService _logService;
+        private NoDepositAccountRefillService _noDepositAccountRefillService;
+        private DepositAccountRefillService _depositAccountRefillService;
+        private UserNotifications _userNotifications;
+        private IChangeClient? _employee;
 
         private string _currentAction = "add"; // действие, которым вызвана страница
 
-        public AddEditClientPage(Service<Client> service, IChangeClient employee, ClientDTO selectedClient, MainWindow mainWindow)
+        public AddEditClientPage(Service<Client> service, ClientDTO selectedClient, MainWindow mainWindow, LogService logService, 
+            DepositAccountRefillService depositAccountRefillService, NoDepositAccountRefillService noDepositAccountRefillService, UserNotifications userNotifications)
         {
             InitializeComponent();
-            this._mainWindow = mainWindow;
-            this._service = service;
-            this._employee = employee;
+            _mainWindow = mainWindow;
+            _service = service;
+            _mainWindow = mainWindow;
+            _logService = logService;
+            _depositAccountRefillService = depositAccountRefillService;
+            _noDepositAccountRefillService = noDepositAccountRefillService;
+            _userNotifications = userNotifications;
+            _employee = BankSystemContext.Employee;
 
             if (selectedClient != null)
             {
                 _currentClient = selectedClient;
                 _currentAction = "edit";
                 pageHeader.Content = "Редактирование клиента";
+
+                _service.ClientUpdated += _logService.OnEventTriggered;
+                _service.ClientUpdated += _userNotifications.ShowNotificationClientUpdated;
             }
-            
-            this.DataContext = _currentClient; // привязка данных клиента к форме
+            else
+            {
+                _currentClient = new();
+            }
+
+            DataContext = _currentClient; // привязка данных клиента к форме
 
             #region Проверка прав доступа для редактирования полей
-            if (!employee.CanUpdateLastName())
+            if (_employee != null && !_employee.CanUpdateLastName())
             {
                 lastNameTextBox.IsEnabled = false;
                 lastNameTextBox.IsReadOnly = true;
             }
-            if (!employee.CanUpdateFirstName())
+            if (_employee != null && !_employee.CanUpdateFirstName())
             {
                 firstNameTextBox.IsEnabled = false;
                 firstNameTextBox.IsReadOnly = true;
             }
-            if (!employee.CanUpdateMiddleName())
+            if (_employee != null && !_employee.CanUpdateMiddleName())
             {
                 middleNameTextBox.IsEnabled = false;
                 middleNameTextBox.IsReadOnly = true;
             }
-            if (!employee.CanUpdatePassportNumber())
+            if (_employee != null && !_employee.CanUpdatePassportNumber())
             {
                 passportNumberTextBox.IsEnabled = false;
                 passportNumberTextBox.IsReadOnly = true;
@@ -94,27 +112,31 @@ namespace BankSystemWPF.Pages
 
             if (_currentAction == "add")
             {
-                _service.AddClient(_currentClient, _employee);
+                _service.AddClient(_currentClient);
             }
             else if (_currentAction == "edit")
             {
-                _service.UpdateClient(_currentClient, _employee);
+                _service.UpdateClient(_currentClient);
             }
 
-            this.CancelButton_Click(sender, e);
+            CancelButton_Click(sender, e);
         }
 
-        private void CancelButton_Click(Object sender, RoutedEventArgs e)
+        private void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this._employee.GetType() == typeof(Manager))
+            _service.ClientUpdated -= _logService.OnEventTriggered;
+            _service.ClientUpdated -= _userNotifications.ShowNotificationClientUpdated;
+
+            if (_employee?.GetType() == typeof(Manager))
             {
-                _mainWindow.NavigateToPage(new ManagerMainPage(_mainWindow));
+                _mainWindow.NavigateToPage(new ManagerMainPage(_mainWindow, _logService,
+                _depositAccountRefillService, _noDepositAccountRefillService, _service, _userNotifications));
             }
-            else if (this._employee.GetType() == typeof(Consultant))
+            else if (_employee?.GetType() == typeof(Consultant))
             {
-                _mainWindow.NavigateToPage(new ConsultantMainPage(_mainWindow));
+                _mainWindow.NavigateToPage(new ConsultantMainPage(_mainWindow, _logService,
+                _depositAccountRefillService, _noDepositAccountRefillService, _service, _userNotifications));
             }
         }
-
     }
 }

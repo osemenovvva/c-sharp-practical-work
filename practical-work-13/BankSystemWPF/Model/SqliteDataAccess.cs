@@ -4,9 +4,8 @@ using System.Configuration;
 using System.Data;
 using System.Data.SQLite;
 using Dapper;
-using BankSystemWPF.Model;
 
-namespace BankSystemWPF
+namespace BankSystemWPF.Model
 {
     public class SqliteDataAccess<T> : ITransferMoney<T>
         where T : Account
@@ -15,7 +14,7 @@ namespace BankSystemWPF
         /// Метод загрузки данных о клиентах из хранилища
         /// </summary>
         /// <returns>Список клиентов</returns>
-        public List<Client> LoadClients() 
+        public List<Client>? LoadClients()
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
@@ -64,17 +63,17 @@ namespace BankSystemWPF
         }
 
         /// <summary>
-        /// Метод для изменения данных о клиенте в хранилище
+        /// Метод изменения данных о клиенте в хранилище
         /// </summary>
         /// <param name="client">Клиент</param>
         public void EditClient(Client client)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute($"update Client set LastName = '{client.LastName}', FirstName = '{client.FirstName}', MiddleName = '{client.MiddleName}', " +
-                    $"PhoneNumber = '{client.PhoneNumber}', PassportNumber = '{client.PassportNumber}', UpdateDate = '{client.UpdateDate}', " +
-                    $"UpdatedField = '{client.UpdatedField}', UpdateType = '{client.UpdateType}', EmployeeType = '{client.EmployeeType}' " +
-                    $"where Id = {client.Id}");
+                cnn.Execute(@"update Client set LastName = @LastName, FirstName = @FirstName, MiddleName = @MiddleName,
+                     PhoneNumber = @PhoneNumber, PassportNumber = @PassportNumber, UpdateDate = @UpdateDate,
+                     UpdatedField = @UpdatedField, UpdateType = @UpdateType, EmployeeType = @EmployeeType
+                     where Id = @Id", client);
             }
         }
 
@@ -83,7 +82,7 @@ namespace BankSystemWPF
         /// </summary>
         /// <param name="clientId">Идентификатор клиента</param>
         /// <returns>Список счетов клиента</returns>
-        public List<Account> LoadAccounts(int clientId)
+        public List<Account>? LoadAccounts(int clientId)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
@@ -93,31 +92,27 @@ namespace BankSystemWPF
         }
 
         /// <summary>
-        /// Метод для сохранения данных о новом счете в хранилище
+        /// Метод сохранения данных о новом счете в хранилище
         /// </summary>
         /// <param name="account">Новый счет</param>
-        /// <param name="clientId">Идентификатор клиента</param>
-        public void SaveAccount(Account account, int clientId)
+        public void SaveAccount(Account account)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 cnn.Execute("insert into Account (AccountName, CreationDate, Type, Balance, ClientId) " +
-                    $"values (@AccountName, @CreationDate, @Type, @Balance, {clientId})", account);
+                    $"values (@AccountName, @CreationDate, @Type, @Balance, @ClientId)", account);
             }
         }
 
         /// <summary>
-        /// Метод для изменения данных о счете клиента в хранилище
+        /// Метод изменения данных о счете клиента в хранилище
         /// </summary>
         /// <param name="account">Счет</param>
-        /// <param name="clientId">Идентификатор клиента</param>
-        public void EditAccount(Account account, int clientId) 
+        public void EditAccount(Account account)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute($"update Account set AccountName = '{account.AccountName}', CreationDate = '{account.CreationDate}', " +
-                    $"Type = '{account.Type}', Balance = '{account.Balance}', ClientId = '{clientId}' " +
-                    $"where Id = {account.Id}");
+                cnn.Execute(@"update Account set AccountName = @AccountName, Balance = @Balance where Id = @Id", account);
             }
         }
 
@@ -125,53 +120,69 @@ namespace BankSystemWPF
         /// Метод удаления данных о счете из хранилища
         /// </summary>
         /// <param name="account">Счет для удаления</param>
-        public void DeleteAccount(Account account) 
+        public void DeleteAccount(Account account)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute($"delete from Account where Id = {account.Id}");
+                cnn.Execute($"delete from Account where Id = @Id", account);
             }
         }
 
         /// <summary>
-        /// Метод для обновления баланса счета при переводе денежных средств
+        /// Метод обновления баланса счета при переводе денежных средств
         /// </summary>
-        /// <param name="account">Счет для изменения баланса</param>
-        public void UpdateBalance(T account)
+        /// <param name="accountFrom">Счет c которого переведены деньги</param>
+        /// <param name="accountTo">Счет на который переведены деньги</param>
+        public void UpdateBalance(T accountFrom, T accountTo)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute($"update Account set Balance = '{account.Balance}' where Id = {account.Id}");
+                cnn.Execute($"update Account set Balance = @Balance where Id = @Id", accountFrom);
+                cnn.Execute($"update Account set Balance = @Balance where Id = @Id", accountTo);
             }
         }
 
         /// <summary>
-        /// Метод для пополнения баланса счета
+        /// Метод пополнения баланса счета
         /// </summary>
         /// <param name="account">Счет</param>
         /// <returns>Счет</returns>
-        public Account RefillAccount(Account account) 
+        public Account? RefillAccount(Account account)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute($"update Account set Balance = '{account.Balance}' where Id = {account.Id}");
+                cnn.Execute($"update Account set Balance = @Balance where Id = @Id", account);
             }
 
             return null;
         }
 
         /// <summary>
-        /// Метод для поиска счета клиента по его типу в хранилище
+        /// Метод поиска счета клиента по его типу в хранилище
         /// </summary>
         /// <param name="clientId">Идентификатор клиента</param>
         /// <param name="accountType">Тип счета</param>
         /// <returns>Счет</returns>
-        public T FindAccount(int clientId, int accountType)
+        public T? FindAccount(int clientId, int accountType)
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
                 var output = cnn.Query<T>($"select * from Account a where a.ClientId = {clientId} and a.Type = {accountType}",
                                             new DynamicParameters());
+                return output.FirstOrDefault();
+            }
+        }
+
+        /// <summary>
+        /// Метод получения счета по идентификатору
+        /// </summary>
+        /// <param name="accountId">Идентификатор cчета</param>
+        /// <returns>Запись о найденном счете</returns>
+        public Account? GetAccountById(int accountId)
+        {
+            using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
+            {
+                var output = cnn.Query<Account>($"select * from Account a where a.Id = {accountId}", new DynamicParameters());
                 return output.FirstOrDefault();
             }
         }

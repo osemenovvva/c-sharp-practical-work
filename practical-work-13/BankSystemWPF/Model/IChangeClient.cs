@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BankSystemWPF
+namespace BankSystemWPF.Model
 {
     /// <summary>
     /// Изменение списка клиентов

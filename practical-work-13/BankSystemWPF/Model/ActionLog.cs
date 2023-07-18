@@ -9,26 +9,47 @@ namespace BankSystemWPF.Model
 {
     public class ActionLog
     {
+        #region Поля
+
         string actionDate;
         string actorRole;
-        string actionType;
+        string actionDescription;
 
+        #endregion
+
+        #region Свойства
+
+        /// <summary>
+        /// Дата действия
+        /// </summary>
         public string ActionDate { get; set; }
 
+        /// <summary>
+        /// Роль пользователя, совершившего действие
+        /// </summary>
         public string ActorRole { get; set; }
 
-        public string ActionType { get; set; }
+        /// <summary>
+        /// Действие, совершенное в системе
+        /// </summary>
+        public string ActionDescription { get; set; }
+
+        #endregion
+
+        #region Конструкторы
 
         public ActionLog()
         {
 
         }
 
-        public ActionLog(string actionRecord, IChangeClient employee)
+        public ActionLog(string actionRecord)
         {
             ActionDate = DateTime.Now.ToString();
-            ActorRole = employee.GetType() == typeof(Manager) ? "Менеджер" : "Консультант";
-            ActionType = actionRecord;
+            ActorRole = BankSystemContext.EmployeeName;
+            ActionDescription = actionRecord;
         }
+
+        #endregion
     }
 }

@@ -87,16 +87,6 @@ namespace BankSystemWPF.Model
             PassportNumber = passportNumber;
         }
 
-        public Client(int id, string lastname, string firstname, string middlename, string phonenumber,
-            string passportnumber, string updateDate, string updatedField, string updateType, string employeeType)
-            : this(id, lastname, firstname, middlename, phonenumber, passportnumber)
-        {
-            UpdateDate = updateDate;
-            UpdatedField = updatedField;
-            UpdateType = updateType;
-            EmployeeType = employeeType;
-        }
-
         public Client() { }
 
         #endregion

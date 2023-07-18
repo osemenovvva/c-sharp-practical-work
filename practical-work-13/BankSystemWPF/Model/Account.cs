@@ -11,6 +11,7 @@ namespace BankSystemWPF.Model
         string creationDate;
         int type;
         decimal balance;
+        int clientId;
 
         #endregion 
 
@@ -41,17 +42,20 @@ namespace BankSystemWPF.Model
         /// </summary>
         public decimal Balance { get; set; }
 
+        public int ClientId { get; set; }
+
         #endregion
 
         #region Конструкторы
 
-        public Account(int id, string accountName, string creationDate, int type, decimal balance)
+        public Account(int id, string accountName, string creationDate, int type, decimal balance, int clientId)
         {
             Id = id;
             AccountName = accountName;
             CreationDate = creationDate;
             Type = type;
             Balance = balance;
+            ClientId = clientId;
         }
 
         public Account() 

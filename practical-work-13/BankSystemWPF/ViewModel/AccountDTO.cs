@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace BankSystemWPF.Model
+namespace BankSystemWPF.ViewModel
 {
     public class AccountDTO : INotifyPropertyChanged
     {
@@ -10,16 +10,17 @@ namespace BankSystemWPF.Model
         int id;
         string accountName;
         string creationDate;
-        string type;
+        AccountType type;
         string balance;
+        int clientId;
 
         #endregion
 
         public event PropertyChangedEventHandler? PropertyChanged;
+
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
-            if (PropertyChanged != null)
-                PropertyChanged(this, new PropertyChangedEventArgs(prop));
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
         #region Свойства
@@ -36,12 +37,12 @@ namespace BankSystemWPF.Model
         {
             get
             {
-                return this.accountName;
+                return accountName;
             }
 
             set
             {
-                this.accountName = value;
+                accountName = value;
                 OnPropertyChanged();
             }
         }
@@ -54,16 +55,16 @@ namespace BankSystemWPF.Model
         /// <summary>
         /// Тип (депозитный или недепозитный)
         /// </summary>
-        public string Type
+        public AccountType Type
         {
             get
             {
-                return this.type;
+                return type;
             }
 
             set
             {
-                this.type = value;
+                type = value;
                 OnPropertyChanged();
             }
         }
@@ -75,27 +76,30 @@ namespace BankSystemWPF.Model
         {
             get
             {
-                return this.balance;
+                return balance;
             }
 
             set
             {
-                this.balance = value;
+                balance = value;
                 OnPropertyChanged();
             }
         }
+
+        public int ClientId { get; set; }
 
         #endregion
 
         #region Конструкторы
 
-        public AccountDTO(int id, string accountName, string creationDate, string type, string balance)
+        public AccountDTO(int id, string accountName, string creationDate, AccountType type, string balance, int clientId)
         {
             Id = id;
             AccountName = accountName;
             CreationDate = creationDate;
             Type = type;
             Balance = balance;
+            ClientId = clientId;
         }
 
         public AccountDTO()
@@ -103,6 +107,12 @@ namespace BankSystemWPF.Model
         }
 
         #endregion
+    }
+
+    public enum AccountType
+    {
+        NoDepositAccount = 0,
+        DepositAccount = 1
     }
 }
 

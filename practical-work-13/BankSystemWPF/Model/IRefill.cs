@@ -1,6 +1,4 @@
-﻿using BankSystemWPF.Model;
-
-namespace BankSystemWPF
+﻿namespace BankSystemWPF.Model
 {
     public interface IRefill<out T>
     {

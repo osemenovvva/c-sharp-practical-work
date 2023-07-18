@@ -1,19 +1,15 @@
-﻿using BankSystemWPF.Model;
-using Dapper;
-using System;
+﻿using Dapper;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Configuration;
 
-namespace BankSystemWPF
+namespace BankSystemWPF.Model
 {
     public class LogRepository
     {
-        public LogRepository() 
+        public LogRepository()
         {
         }
 
@@ -38,8 +34,8 @@ namespace BankSystemWPF
         {
             using (IDbConnection cnn = new SQLiteConnection(LoadConnectionString()))
             {
-                cnn.Execute("insert into ActionLog (ActionDate, ActorRole, ActionType) " +
-                    "values (@ActionDate, @ActorRole, @ActionType)", logRecord);
+                cnn.Execute("insert into ActionLog (ActionDate, ActorRole, ActionDescription) " +
+                    "values (@ActionDate, @ActorRole, @ActionDescription)", logRecord);
             }
         }
 

@@ -1,30 +1,26 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
+  <ItemGroup />
   <ItemGroup>
-    <ApplicationDefinition Update="App.xaml">
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Pages\ActionsJournalLog.xaml.cs">
+    <Compile Update="ViewModel\ActionsJournalLog.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Page Update="MainWindow.xaml">
+    <Page Update="View\MainWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Pages\ActionsJournalLog.xaml">
+    <Page Update="View\ActionsJournalLog.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Pages\AuthPage.xaml">
+    <Page Update="View\AuthPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Pages\ConsultantMainPage.xaml">
+    <Page Update="View\ConsultantMainPage.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Pages\ManagerMainPage.xaml">
+    <Page Update="View\ManagerMainPage.xaml">
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
