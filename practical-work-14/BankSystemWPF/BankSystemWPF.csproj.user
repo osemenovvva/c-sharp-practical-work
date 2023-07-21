@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup />
+  <ItemGroup />
+  <ItemGroup>
+    <Compile Update="ActionsJournalLog.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="MainWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ActionsJournalLog.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="AuthPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ConsultantMainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="ManagerMainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+</Project>
